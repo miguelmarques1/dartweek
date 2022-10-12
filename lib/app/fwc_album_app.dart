@@ -1,8 +1,8 @@
 import 'package:dartweek/app/core/rest/custom_dio.dart';
 import 'package:dartweek/app/core/ui/theme/theme_config.dart';
+import 'package:dartweek/app/pages/auth/login/login_route.dart';
+import 'package:dartweek/app/pages/auth/register/register_route.dart';
 import 'package:dartweek/app/pages/home/home_page.dart';
-import 'package:dartweek/app/pages/auth/login/login_page.dart';
-import 'package:dartweek/app/pages/auth/register/register_page.dart';
 import 'package:dartweek/app/pages/splash/splash_route.dart';
 import 'package:dartweek/app/repository/auth/auth_repository_impl.dart';
 
@@ -26,9 +26,9 @@ class FwcAlbumApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         routes: {
           '/': (_) => const SplashRoute(),
-          '/auth/login': (context) => const LoginPage(),
+          '/auth/login': (context) => const LoginRoute(),
           '/home': (context) => const HomePage(),
-          '/auth/register': (context) => const RegisterPage()
+          '/auth/register': (context) => const RegisterRoute()
         }
       ),
     );

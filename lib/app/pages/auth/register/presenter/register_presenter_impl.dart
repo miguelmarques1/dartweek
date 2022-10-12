@@ -2,14 +2,14 @@ import 'dart:developer';
 
 import 'package:dartweek/app/models/register_user_model.dart';
 import 'package:dartweek/app/pages/auth/register/view/register_view.dart';
-import 'package:dartweek/app/repository/auth/auth_repository.dart';
+import 'package:dartweek/app/repository/auth/auth_repository_impl.dart';
 
 import './register_presenter.dart';
 
 class RegisterPresenterImpl implements RegisterPresenter {
 
   late RegisterView _view;
-  final AuthRepository authRepository;
+  final AuthRepositoryImpl authRepository;
 
   RegisterPresenterImpl({required this.authRepository});
 
@@ -23,7 +23,7 @@ class RegisterPresenterImpl implements RegisterPresenter {
       _view.registerSuccess();
     } catch (e) {
       log("Erro ao cadastrar o usuário", error: e);   
-      _view.registerError("Deu erro");
+      _view.registerError("Erro ao cadastrar usuário");
     }
   }
 

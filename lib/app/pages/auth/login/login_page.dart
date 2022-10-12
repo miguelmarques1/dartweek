@@ -1,24 +1,44 @@
 import 'package:dartweek/app/core/ui/styles/button_styles.dart';
 import 'package:dartweek/app/core/ui/styles/colors_app.dart';
 import 'package:dartweek/app/core/ui/styles/text_styles.dart';
+import 'package:dartweek/app/pages/auth/login/presenter/login_presenter.dart';
+import 'package:dartweek/app/pages/auth/login/view/login_view_impl.dart';
 import 'package:flutter/gestures.dart';
 import "package:flutter/material.dart";
+import 'package:validatorless/validatorless.dart';
 
 import '../../../core/ui/widgets/button.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+
+  final LoginPresenter presenter;
+
+  const LoginPage({super.key, required this.presenter});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends LoginViewImpl {
+
+  var _formKey = GlobalKey<FormState>();
+  final emailEC = TextEditingController();
+  final passEC = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    emailEC.dispose();
+    passEC.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.colors.primary,
       body: Form(
+        key: _formKey,
         child: Container(
           padding: const EdgeInsets.all(10),
           decoration: const BoxDecoration(
@@ -39,6 +59,11 @@ class _LoginPageState extends State<LoginPage> {
                     child: Center(child: Text("Login", style: context.textStyles.titleWhite,)),
                   ),
                   TextFormField(
+                    controller: emailEC,
+                    validator: Validatorless.multiple([
+                      Validatorless.required("Obrigatório"),
+                      Validatorless.email("Email incorreto")
+                    ]),
                     decoration: const InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       label: Text("Email")
@@ -48,6 +73,12 @@ class _LoginPageState extends State<LoginPage> {
                        height: 20,
                     ),
                     TextFormField(
+                      controller: passEC,
+                      obscureText: true,
+                      validator: Validatorless.multiple([
+                        Validatorless.required("Obrigatório"),
+                        Validatorless.min(6, "Senha deve ter no mínimo 6 caracteres")
+                      ]),
                     decoration: const InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       label: Text("Senha")
@@ -70,7 +101,10 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   Button(
                     width: MediaQuery.of(context).size.width * 0.9,
-                    onPressed: () {},
+                    onPressed: () {
+                      showLoader();
+                      widget.presenter.login(emailEC.text, passEC.text);
+                    },
                     style: context.buttonStyles.yellowButton,
                     label: 'Entrar',
                     labelStyle: context.textStyles.textSecondaryFontExtraBoldPrimaryColor,

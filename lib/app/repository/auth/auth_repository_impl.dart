@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dartweek/app/core/exceptions/repository_exception.dart';
+import 'package:dartweek/app/core/exceptions/unauthorized_exception.dart';
 import 'package:dartweek/app/models/register_user_model.dart';
 import 'package:dio/dio.dart';
 
@@ -24,9 +25,27 @@ class AuthRepositoryImpl implements AuthRepository {
   }
   
   @override
-  Future<String> login({required String email, required String password}) {
-    // TODO: implement login
-    throw UnimplementedError();
+  Future<String> login({required String email, required String password}) async {
+    final result = await dio.unAuth().post('/api/auth', data: {
+      'email': email,
+      'password': password
+    });
+
+    try {
+  final accessToken = result.data['access_token'];
+  if(accessToken == null) {
+    throw UnauthorizedException();
+  }
+  
+  return accessToken;
+} on DioError catch (e, s) {
+  log('Erro ao realizar login', error: e, stackTrace: s);
+  if(e.response?.statusCode == 401) {
+    throw UnauthorizedException();
+  }
+
+  throw RepositoryException("Erro ao realizar o login");
+}
   }
   
   @override
