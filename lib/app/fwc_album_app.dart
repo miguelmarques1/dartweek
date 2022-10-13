@@ -4,9 +4,8 @@ import 'package:dartweek/app/core/ui/global/global_context_impl.dart';
 import 'package:dartweek/app/core/ui/theme/theme_config.dart';
 import 'package:dartweek/app/pages/auth/login/login_route.dart';
 import 'package:dartweek/app/pages/auth/register/register_route.dart';
-import 'package:dartweek/app/pages/home/home_page.dart';
 import 'package:dartweek/app/pages/home/home_route.dart';
-import 'package:dartweek/app/pages/my_stickers/my_stickers_page.dart';
+import 'package:dartweek/app/pages/my_stickers/my_stickers_route.dart';
 import 'package:dartweek/app/pages/splash/splash_route.dart';
 import 'package:dartweek/app/repository/auth/auth_repository_impl.dart';
 
@@ -38,7 +37,7 @@ class FwcAlbumApp extends StatelessWidget {
           '/auth/login': (context) => const LoginRoute(),
           '/home': (context) => HomeRoute(),
           '/auth/register': (context) => const RegisterRoute(),
-          '/my-stickers': (context) => const MyStickersPage()
+          '/my-stickers': (context) => const MyStickersRoute()
         }
       ),
     );

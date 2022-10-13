@@ -16,6 +16,6 @@ class HomeRoute extends FlutterGetItPageRoute {
 
   @override
   // TODO: implement page
-  WidgetBuilder get page => (context) => HomePage(presenter: context.get(),);
+  WidgetBuilder get page => (context) => HomePage(presenter: context.get());
   
 }
