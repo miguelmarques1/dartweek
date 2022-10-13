@@ -14,12 +14,14 @@ abstract class LoginViewImpl extends State<LoginPage> with Loader<LoginPage>, Me
     super.initState();
   }
 
+  @override
   void success() {
     hideLoader();
     showSuccess("Login realizado com sucesso");
     Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
   }
 
+  @override
   void error(String message) {
     hideLoader();
     showError(message);

@@ -32,20 +32,20 @@ class AuthRepositoryImpl implements AuthRepository {
     });
 
     try {
-  final accessToken = result.data['access_token'];
-  if(accessToken == null) {
-    throw UnauthorizedException();
-  }
-  
-  return accessToken;
-} on DioError catch (e, s) {
-  log('Erro ao realizar login', error: e, stackTrace: s);
-  if(e.response?.statusCode == 401) {
-    throw UnauthorizedException();
-  }
+      final accessToken = result.data['access_token'];
+      if(accessToken == null) {
+        throw UnauthorizedException();
+      }
+      
+      return accessToken;
+    } on DioError catch (e, s) {
+      log('Erro ao realizar login', error: e, stackTrace: s);
+      if(e.response?.statusCode == 401) {
+        throw UnauthorizedException();
+      }
 
-  throw RepositoryException("Erro ao realizar o login");
-}
+      throw RepositoryException("Erro ao realizar o login");
+    }
   }
   
   @override

@@ -9,7 +9,7 @@ abstract class SplashViewImpl extends State<SplashPage> with Loader<SplashPage> 
   void logged(bool isLogged) {
     if(isLogged){
       hideLoader();
-      Navigator.pushNamed(context, "/home");
+      Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
     } else {
       hideLoader();
       Navigator.pushNamed(context, "/auth/login");
