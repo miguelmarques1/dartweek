@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class UserStickerModel {
   final int id;
   final int idUser;
@@ -29,4 +31,8 @@ class UserStickerModel {
       stickerNumber: map['sticker_number']
       );
   }
+
+  String toJson() => json.encode(toMap());
+
+  factory UserStickerModel.fromJson(String source) => UserStickerModel.fromMap(json.decode(source));
 }

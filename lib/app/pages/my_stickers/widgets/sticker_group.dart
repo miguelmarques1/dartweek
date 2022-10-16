@@ -2,9 +2,12 @@ import 'package:dartweek/app/core/ui/styles/colors_app.dart';
 import 'package:dartweek/app/core/ui/styles/text_styles.dart';
 import 'package:dartweek/app/models/group_stickers.dart';
 import 'package:dartweek/app/models/user_sticker_model.dart';
+import 'package:dartweek/app/pages/my_stickers/my_stickers_page.dart';
+import 'package:dartweek/app/pages/my_stickers/presenter/my_stickers_presenter.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_getit/flutter_getit.dart';
 
 class StickerGroup extends StatelessWidget {
 
@@ -38,7 +41,7 @@ class StickerGroup extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Text(group.countryName,
                 style: context.textStyles.titleBlack.copyWith(
                   fontSize: 26
@@ -95,9 +98,18 @@ class Sticker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () async {
+        final presenter = context.get<MyStickersPresenter>();
+        await Navigator.of(context).pushNamed("/sticker-detail", arguments: {
+          'countryCode': countryCode,
+          'stickerNumber': stickerNumber,
+          'countryName': countryName,
+          'stickerUser': sticker
+        });
+        presenter.refresh();
+      },
       child: Container(
-        color: ( sticker?.duplicate ?? 0) > 0 ? context.colors.primary : context.colors.grey,
+        color: sticker != null  ? context.colors.primary : context.colors.grey,
         child: Column(
           children: [
             Visibility(
@@ -108,7 +120,7 @@ class Sticker extends StatelessWidget {
               child: Container(
                 alignment: Alignment.topRight,
                 padding: const EdgeInsets.all(2),
-                child: Text("${(sticker?.duplicate ?? 0) > 0}",
+                child: Text("${sticker?.duplicate}",
                   style: context.textStyles.textSecondaryFontMedium.copyWith(
                     color: context.colors.yellow
                   ),
