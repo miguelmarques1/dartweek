@@ -1,4 +1,4 @@
-import 'package:dartweek/app/pages/home/view/home_view.dart';
+import 'package:dartweek/app/pages/home/view_bloc/home_view.dart';
 import 'package:dartweek/app/repository/user/user_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
