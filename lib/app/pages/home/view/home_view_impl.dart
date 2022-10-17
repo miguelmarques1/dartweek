@@ -6,7 +6,7 @@ import '../../../core/ui/helpers/messages.dart';
 import '../home_page.dart';
 import './home_view.dart';
 
-abstract class HomeViewImpl extends State<HomePage> with Loader<HomePage>, Messages<HomePage> implements HomeView {
+/*abstract class HomeViewImpl extends State<HomePage> with Loader<HomePage>, Messages<HomePage> implements HomeView {
 
 
   UserModel? user;
@@ -41,4 +41,4 @@ abstract class HomeViewImpl extends State<HomePage> with Loader<HomePage>, Messa
     });
   }
 
-}
+}*/
