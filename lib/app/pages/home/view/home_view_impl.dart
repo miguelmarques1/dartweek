@@ -26,6 +26,7 @@ abstract class HomeViewImpl extends State<HomePage> with Loader<HomePage>, Messa
     hideLoader();
     showError(message);
   }
+  
 
   @override
   void logoutSuccessful() {
